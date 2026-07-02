@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f5f6;
+  --foreground: #1f2937;
+  --panel: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+}
+
+input,
+textarea,
+select {
+  color: #111827;
+  background-color: #ffffff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+select {
+  color: #111827;
+}
+
+select option {
+  color: #111827;
+  background-color: #ffffff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.bg-app-pattern {
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 45%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.12), transparent 50%),
+    linear-gradient(180deg, #f8f9fb 0%, #eef2f7 100%);
+}
