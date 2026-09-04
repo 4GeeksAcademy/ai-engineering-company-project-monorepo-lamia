@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     """
 
     database_path: str = "data/db.json"
+    database_url: str
     jwt_secret: str  # required — no default
     jwt_algorithm: str = "HS256"
     jwt_expiry_minutes: int = 30
