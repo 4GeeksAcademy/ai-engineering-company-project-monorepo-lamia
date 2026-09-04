@@ -1,0 +1,16 @@
+[project]
+name = "trackflow-inventory-api"
+version = "0.1.0"
+description = "TrackFlow Milestone 5 inventory API with TinyDB auth and Supabase PostgreSQL"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "psycopg[binary]>=3.3.4",
+    "python-dotenv>=1.2.3",
+    "sqlmodel>=0.0.39",
+    "tinydb",
+    "pydantic-settings",
+    "python-jose[cryptography]",
+    "passlib[bcrypt]",
+    "email-validator",
+]
