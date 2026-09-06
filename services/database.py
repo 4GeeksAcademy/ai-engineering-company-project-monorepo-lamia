@@ -11,6 +11,8 @@ from typing import Any
 from pydantic import BaseModel
 from tinydb import TinyDB
 from tinydb.table import Document
+from sqlmodel import Session, create_engine
+from sqlalchemy.pool import NullPool
 
 from config import settings
 
@@ -155,3 +157,19 @@ def backup_db() -> Path:
     dst = backups_dir / f"db_backup_{timestamp}.json"
     copy2(src, dst)
     return dst
+# ---------------------------------------------------------------------------
+# PostgreSQL / Supabase inventory database
+# ---------------------------------------------------------------------------
+
+engine = create_engine(
+    settings.database_url,
+    echo=False,
+    poolclass=NullPool,
+    connect_args={"prepare_threshold": None},
+)
+
+
+def get_db():
+    """Yield a SQLModel session for one FastAPI request."""
+    with Session(engine) as session:
+        yield session
