@@ -11,7 +11,7 @@ from typing import Any
 from pydantic import BaseModel
 from tinydb import TinyDB
 from tinydb.table import Document
-from sqlmodel import Session, create_engine
+from sqlmodel import SQLModel, Session, create_engine
 from sqlalchemy.pool import NullPool
 
 from config import settings
@@ -167,6 +167,13 @@ engine = create_engine(
     poolclass=NullPool,
     connect_args={"prepare_threshold": None},
 )
+
+
+def create_db_and_tables() -> None:
+    """Create the relational inventory tables when they do not exist."""
+    from models import SKU, StockEntry, StockExit
+
+    SQLModel.metadata.create_all(engine)
 
 
 def get_db():

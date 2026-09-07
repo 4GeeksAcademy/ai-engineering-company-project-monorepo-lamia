@@ -1,10 +1,40 @@
-# `services` folder
+# TrackFlow backend
 
-This folder contains **all the backend services** (APIs and background workers) related to the company for the cross-functional AI Engineering project.
+TinyDB stores authentication users. Supabase/PostgreSQL stores inventory data.
 
-Each subfolder inside `services/` must correspond to **one specific service** (for example: `admin-api`, `data-processor-worker`) and include its own technical and functional documentation.
+## Run
 
-- **Main purpose**: to centralize all the backend logic, APIs, and queue consumers that support the company's use cases.
-- **Recommendation**: document in this file (or in sub-READMEs) the services you add, their objective, the technology used, and how to run them.
+From this directory, configure `DATABASE_URL` and `JWT_SECRET` in `.env`, then run:
 
-> _Spanish version: [README.es.md](./README.es.md)._
+```bash
+uv run fastapi dev main.py
+```
+
+Create development inventory data with:
+
+```bash
+uv run python seed.py
+```
+
+The seed uses a documented development UUID and is idempotent. It is not run automatically by the API.
+
+## API
+
+Inventory endpoints:
+
+- `GET /inventory/products`
+- `POST /inventory/products`
+- `GET /inventory/products/{id}`
+- `POST /inventory/orders/inbound`
+- `POST /inventory/orders/outbound`
+- `GET /inventory/orders`
+
+Authentication remains under `/auth` and users remain in TinyDB.
+
+`current_stock` is computed from inbound minus outbound quantities for the individual SKU and its warehouse; it is never stored as a column.
+
+Required environment variables use placeholders in `.env.example`: `DATABASE_URL` and `JWT_SECRET`.
+
+- **Main purpose**: provide the TrackFlow authentication and inventory API.
+
+> Spanish version: [README.es.md](./README.es.md).
